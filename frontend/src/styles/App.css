@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7f9fb;
+}
+
+.header {
+  background: #1a1a1a;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header a {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+main {
+  padding: 2rem;
+  text-align: center;
+}
+
+.buttons button {
+  margin: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-img {
+  width: 100px;
+  border-radius: 50%;
+  float: right;
+  margin: 0 0 1rem 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  display: block;
+  width: 80%;
+  margin: 1rem auto;
+  padding: 0.5rem;
+}
+
+.contact-form button {
+  padding: 0.75rem 2rem;
+}
+
+.popup {
+  position: relative;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  text-align: left;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
