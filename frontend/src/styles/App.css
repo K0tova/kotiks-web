@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Invention:wght@400;700&display=swap');
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Invention', sans-serif;
   margin: 0;
   padding: 0;
   background: url('/images/header.jpeg') center center/cover no-repeat fixed;
@@ -135,4 +135,14 @@ main {
   background: transparent;
   border: none;
   cursor: pointer;
+}
+
+.small-text {
+  font-size: 1rem;
+  color: #478984;
+}
+
+.indented {
+  display: block;
+  margin-left: 2rem;
 }
