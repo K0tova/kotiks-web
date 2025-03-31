@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { X } from 'lucide-react';
 import styles from './Popup.module.css'; // Import styles
+import profileImage from '../../../assets/images/profile.jpeg'; // Adjust the relative path
 
 const Popup = ({ title, text, showImage, onClose }) => { // Destructure showImage
   return (
@@ -10,7 +11,7 @@ const Popup = ({ title, text, showImage, onClose }) => { // Destructure showImag
       <div className={styles.popup}>
         <h2>{title}</h2>
         {showImage && ( // Conditionally render the image
-          <img src="/images/profile.jpeg" alt="Profile" className={styles['popup-img']} />
+          <img src={profileImage} alt="Profile" className={styles['popup-img']} />
         )}
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]} // Enable raw HTML rendering
