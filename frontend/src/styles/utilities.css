@@ -1,0 +1,18 @@
+.small-text {
+     font-size: 1rem;
+     color: #0e8178;
+}
+
+.indented {
+     display: block;
+     margin-left: 2rem;
+}
+
+.spaced-text {
+     font-family: 'Invention', sans-serif;
+     font-size: 1.2rem;
+     color: #d0f0f0;
+     margin-top: 0.5rem;
+     line-height: 1.6;
+     opacity: 0.9;
+}

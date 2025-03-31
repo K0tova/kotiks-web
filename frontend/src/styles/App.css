@@ -2,147 +2,40 @@
 
 body {
   font-family: 'Invention', sans-serif;
+  font-size: 16px;
+  color: #0a2527;
   margin: 0;
   padding: 0;
   background: url('/images/header.jpeg') center center/cover no-repeat fixed;
   background-size: cover;
 }
 
-.header {
-  background: linear-gradient(135deg, #b2fefa, #365a59);
-  color: black;
-  padding: 2rem 0rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  position: relative;
-  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.3);
-  z-index: 1;
-}
-
-.header-overlay {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 4rem;
-}
-
-.header h1 {
-  font-family: 'Invention', sans-serif;
-  font-size: 2.5rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  margin: 0;
-  text-align: center;
-}
-
-.contact-button {
-  background: rgba(7, 80, 66, 0.7);
-  color: white;
-  padding: 2.7rem 1rem;
-  border-radius: 3px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.contact-button:hover {
-  background: rgba(0, 0, 0, 0.9);
+.home-title {
+  font-family: 'Invention', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #f0f8f8;
+  text-align: left;
+  margin-top: 4rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  /* subtle depth */
 }
 
 main {
   padding: 2rem;
-  /* text-align: center; */
 }
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  gap: 2rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.buttons button {
-  background: rgba(0, 0, 0, 0.79);
+.under-construction-box {
   font-family: 'Invention', sans-serif;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 0;
-  width: 250px;
-  height: 250px;
-  font-size: 1.5rem;
-  font-weight: normal;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.buttons button:hover {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-img {
-  width: 100px;
-  border-radius: 50%;
-  float: right;
-  margin: 0 0 1rem 1rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-  display: block;
-  width: 80%;
-  margin: 1rem auto;
-  padding: 0.5rem;
-}
-
-.contact-form button {
-  padding: 0.75rem 2rem;
-}
-
-.popup {
-  position: relative;
-  background: white;
+  background: rgba(255, 166, 0, 0.702);
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
   padding: 2rem;
+  margin: 20vh auto;
+  width: 50%;
   border-radius: 10px;
-  max-width: 500px;
-  width: 90%;
-  text-align: left;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.small-text {
-  font-size: 1rem;
-  color: #478984;
-}
-
-.indented {
-  display: block;
-  margin-left: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

@@ -1,0 +1,73 @@
+.contact-main {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 90vh;
+     padding-top: 60px;
+}
+
+.contact-card {
+     background: rgba(255, 255, 255, 0.75);
+     backdrop-filter: blur(20px);
+     -webkit-backdrop-filter: blur(20px);
+     border-radius: 20px;
+     padding: 1rem 10rem;
+     max-width: 600px;
+     width: 90%;
+     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+     text-align: center;
+     color: #1a1a1a;
+}
+
+.contact-card h2 {
+     padding: 1rem 0.5rem;
+     font-size: 2rem;
+     margin-bottom: 2rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+     width: 100%;
+     padding: 0.75rem 1rem;
+     margin-bottom: 1rem;
+     border: 1px solid rgba(0, 0, 0, 0.1);
+     border-radius: 10px;
+     font-size: 1rem;
+     font-family: 'Invention', sans-serif;
+     background: rgba(255, 255, 255, 0.9);
+     color: #1a1a1a;
+     resize: vertical;
+}
+
+.contact-form button {
+     padding: 0.75rem 2rem;
+     border-radius: 10px;
+     border: none;
+     font-size: 1rem;
+     font-weight: bold;
+     background-color: #0e8178;
+     color: white;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+     background-color: #08655e;
+}
+
+.social-links {
+     display: flex;
+     justify-content: center;
+     gap: 2rem;
+     margin-top: 1.5rem;
+}
+
+.social-links a {
+     font-size: 2rem;
+     color: #0e8178;
+     transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+     color: #064944;
+}

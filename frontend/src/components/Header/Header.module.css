@@ -1,0 +1,47 @@
+header {
+     background: rgba(20, 20, 20, 0.4);
+     backdrop-filter: blur(10px);
+     -webkit-backdrop-filter: blur(10px);
+     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+     position: fixed;
+     height: 60px;
+     width: 100%;
+     top: 0;
+     z-index: 100;
+}
+
+.header-overlay {
+     flex: 1;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin-left: 4rem;
+}
+
+.header-nav {
+     display: flex;
+     gap: 1rem;
+     justify-content: flex-end;
+     width: 100%;
+     margin-right: 4rem;
+}
+
+.header-button {
+     background: none;
+     font-size: 1.2rem;
+     color: white;
+     padding: 20px 10px;
+     border: none;
+     font-weight: normal;
+     text-decoration: none;
+     cursor: pointer;
+     transition: font-weight 0.3s ease;
+}
+
+.header-button:hover {
+     font-weight: bold;
+}
+
+.header-button:active {
+     font-weight: bolder;
+}
