@@ -3,7 +3,7 @@ name = "web"
 version = "0.1.0"
 description = "This is the backend of my personal website project"
 authors = ["kotova-olga <kotova.olga@bcg.com>"]
-license = "MIT"
+license = "Proprietary"
 readme = "README.md"
 
 [tool.poetry.dependencies]

@@ -83,3 +83,6 @@ TBD
 - **Understand Backend Development**: Use FastAPI to create and expose APIs.
 - **Integrate Frontend and Backend**: Connect the React frontend to the FastAPI backend for a full-stack experience.
 
+## Licensing
+
+This code is not open-source. Please contact me directly at kotova.od@gmail.com if you'd like to reuse or adapt any part of this project.
