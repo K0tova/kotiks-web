@@ -10,10 +10,8 @@ readme = "README.md"
 python = "^3.12"
 fastapi = "^0.115.12"
 uvicorn = "^0.34.0"
-flask = "^3.1.0"
-django = "^5.1.7"
-flask-cors = "^5.0.1"
 python-dotenv = "^1.1.0"
+plotly = "^6.0.1"
 
 
 [build-system]

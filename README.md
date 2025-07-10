@@ -1,88 +1,71 @@
-# kotiks-web
+# Kotiks Web
 
-This repository is a personal project to create my own website. It serves as a testbed for learning React and understanding how to connect a frontend built with React to a backend using FastAPI. The project is structured into two main parts: the **frontend** and the **backend**.
+Personal website project – React (Vite) + FastAPI – now containerised with Docker Compose.
 
----
+## Quick start (development)
 
-## Project Overview
-
-- **Frontend**: Built with React and Vite for fast development and modern tooling.
-- **Backend**: Built with FastAPI, a modern Python web framework for building APIs.
-
-This project is a hands-on exploration of how to integrate a React-based frontend with a FastAPI backend.
-
----
-
-## Prerequisites
-
-Before setting up the project, ensure you have the following installed on your system:
-
-- **Node.js** (v16 or later)
-- **Python** (v3.9 or later)
-- **Poetry** (for Python dependency management)
-- **npm** (comes with Node.js)
-
----
-
-## Setup Instructions
-
-### 1. Clone the Repository
 ```bash
-git clone git@github.com:K0tova/kotiks-web.git
-cd kotiks-web
+# first time only
+cp .env.example .env     # fill EMAIL_ADDRESS, EMAIL_PASSWORD, etc.
+
+# build & run with hot-reload
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 ```
 
-### 2. Backend Setup
-- Navigate to the backend directory:
-     ```bash
-     cd backend
-     ```
-- Install the required dependencies:
-     ```bash
-     poetry init
-     ```
+* App URL (via Nginx):   http://localhost:5174
+* FastAPI docs:          http://localhost:8000/docs
 
-- Install the required dependencies:
-     ```bash
-     poetry add fastapi uvicorn flask django
-     ```
+Code changes on the host automatically reload containers (UVicorn `--reload`, Vite).
 
-- Run the backend server:
-     ```bash
-     poetry run uvicorn main:app --reload
-     ```
-- The backend server will start at `http://127.0.0.1:8000`.
+### How the ports work (dev stack)
 
-### 3. Frontend Setup
+| Scope | Port | Component | Purpose |
+|-------|------|-----------|---------|
+| Host  | **5174** | nginx container | Single entry-point you open in the browser. |
+| Docker network | 5175 | Vite dev server (`frontend` container) | Serves React app with hot-reload; **not published to host**. |
+| Docker network / optional host mapping | 8000 | FastAPI (`backend` container) | API (published to host by default for convenience). |
 
-- Navigate to the frontend directory:
-     ```bash
-     cd frontend
-     ```
-- Install the required dependencies:
-     ```bash
-     npm install
-     ```
+Flow:
+1. Browser hits `localhost:5174` → reaches nginx.
+2. For UI assets `/` nginx proxies to `http://frontend:5175`.
+3. For API calls `/api/...` nginx proxies to `http://backend:8000`.
 
-- Add the Vite React plugin:
-     ```bash
-     npm install @vitejs/plugin-react --save-dev
-     ```
+Because port 5175 isn’t exposed, the browser can’t bypass nginx, ensuring all requests (UI & API) share the same origin and CORS is never an issue.
 
-- Start the frontend development server:
-     ```bash
-     npm run dev
-     ```
-- The frontend server will start at http://127.0.0.1:5173.
+Stop everything with `Ctrl + C`.
 
-### 4. Connecting Frontend and Backend
-TBD
+### Accessing the app (dev)
 
-## Project Goals
-- **Learn React**: Build a modern frontend using React and Vite.
-- **Understand Backend Development**: Use FastAPI to create and expose APIs.
-- **Integrate Frontend and Backend**: Connect the React frontend to the FastAPI backend for a full-stack experience.
+| URL | What you get |
+|-----|---------------|
+| http://localhost:5174 | React UI served by Vite (hot-reload) via Nginx reverse-proxy |
+| http://localhost:8000/docs | FastAPI interactive API docs (Swagger UI) |
 
-## Licensing
+## Production build & run locally
 
-This code is not open-source. Please contact me directly at kotova.od@gmail.com if you'd like to reuse or adapt any part of this project.
+```bash
+# build optimised images & start nginx reverse-proxy on 5174
+docker compose up --build
+# open http://localhost:5174
+```
+
+The bundled React site is served through Nginx on the **same 5174 port**; `/api` calls are forwarded to the backend running inside the Compose network.
+
+This produces three images:
+
+* `kotiks-web-backend` – Gunicorn + UvicornWorker (FastAPI)
+* `kotiks-web-frontend-build` – intermediate build stage
+* `kotiks-web-nginx` – serves the compiled React app and proxies `/api` to backend
+
+## Deploying
+
+See `docs/proper_setup.md` §7 for a full CI/CD example using GitHub Actions, image registry, and zero-downtime updates on a cloud VM.
+
+## Repo layout
+
+```
+backend/         FastAPI app & Dockerfile
+frontend/        React source (Vite)
+nginx/           Nginx configs & Dockerfile
+Dockerfiles +   Compose definitions at repo root
+```
