@@ -1,25 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Invention:wght@400;700&display=swap');
+@import './theme.css';
 
 body {
-  font-family: 'Invention', sans-serif;
-  font-size: 16px;
-  color: #0a2527;
+  font-family: var(--ff-body);
+  font-size: var(--fs-0);
+  font-weight: var(--fw-light);
+  color: var(--text);
   margin: 0;
   padding: 0;
-  background: url('../assets/images/header.jpeg') center center/cover no-repeat fixed;
-  background-size: cover;
+  /* Modern data-inspired background */
+  background:
+    radial-gradient(circle at center, rgba(1, 120, 125, 0.6) 0%, rgba(1, 96, 100, 0.3) 35%, rgba(1, 70, 73, 0) 60%),
+    radial-gradient(circle at center, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(135deg, #01333d 0%, #011a1f 100%);
+  background-size: auto, 400px, cover;
+  background-attachment: fixed;
 }
 
-.home-title {
-  font-family: 'Invention', serif;
-  font-size: 3rem;
-  font-weight: 600;
-  color: #f0f8f8;
-  text-align: left;
-  margin-top: 4rem;
-  letter-spacing: 0.5px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  /* subtle depth */
+/* global heading styles */
+h1,
+h2,
+h3 {
+  font-family: var(--ff-heading);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--fs-3);
+}
+
+h2 {
+  font-size: var(--fs-2);
+}
+
+h3 {
+  font-size: var(--fs-1);
 }
 
 main {
@@ -27,10 +43,10 @@ main {
 }
 
 .under-construction-box {
-  font-family: 'Invention', sans-serif;
+  font-family: var(--ff-body);
   background: rgba(255, 166, 0, 0.702);
   color: black;
-  font-size: 2rem;
+  font-size: var(--fs-2);
   font-weight: bold;
   text-align: center;
   padding: 2rem;
@@ -38,4 +54,11 @@ main {
   width: 50%;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }

@@ -1,6 +1,6 @@
 .small-text {
      font-size: 1rem;
-     color: #0e8178;
+     color: var(--primary);
 }
 
 .indented {
@@ -9,10 +9,44 @@
 }
 
 .spaced-text {
-     font-family: 'Invention', sans-serif;
-     font-size: 1.2rem;
-     color: #d0f0f0;
+     font-family: var(--ff-body);
+     font-size: var(--fs-1);
+     color: var(--text);
      margin-top: 0.5rem;
      line-height: 1.6;
      opacity: 0.9;
+}
+
+.primary-btn {
+     display: inline-flex;
+     align-items: center;
+     gap: 0.5rem;
+     padding: 0.75rem 2.5rem;
+     border-radius: 6px;
+     background: linear-gradient(135deg, #00c1c1 0%, #14d9d9 100%);
+     border: none;
+     color: #ffffff !important;
+     font-size: 1rem;
+     font-weight: 500;
+     backdrop-filter: blur(10px);
+     cursor: pointer;
+     transition: all 0.3s ease;
+     box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+     text-decoration: none;
+}
+
+.primary-btn:visited {
+     color: #ffffff !important;
+}
+
+.primary-btn:focus {
+     outline: none;
+     box-shadow: 0 0 0 2px rgba(0, 193, 193, 0.5);
+}
+
+.primary-btn:hover {
+     background: linear-gradient(135deg, #14d9d9 0%, #2ef0f0 100%);
+     color: #0d1b2a;
+     transform: translateY(-2px);
+     box-shadow: 0 8px 24px rgba(0, 255, 255, 0.2);
 }

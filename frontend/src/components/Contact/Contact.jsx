@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import { FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { Send } from 'lucide-react';
 import styles from './Contact.module.css';
 
 const Contact = () => {
@@ -52,7 +53,10 @@ const Contact = () => {
               required
               rows="5"
             />
-            <button type="submit">Send Message</button>
+            <button type="submit" className="primary-btn">
+              <Send size={18} />
+              <span>Send</span>
+            </button>
           </form>
           {status && <p>{status}</p>} {/* Display success/error messages */}
           <div className={styles["social-links"]}>

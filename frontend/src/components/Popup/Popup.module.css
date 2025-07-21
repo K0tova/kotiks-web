@@ -4,8 +4,11 @@
      left: 0;
      width: 100vw;
      height: 100vh;
-     background: rgba(0, 0, 0, 0.364);
-     backdrop-filter: blur(2px);
+     background: rgba(0, 0, 0, 0.15);
+     /* subtle dim */
+     backdrop-filter: blur(8px);
+     /* stronger blur */
+     -webkit-backdrop-filter: blur(8px);
      display: flex;
      justify-content: center;
      align-items: center;
@@ -25,41 +28,48 @@
 
 .popup {
      position: relative;
-     background: rgba(255, 255, 255, 0.75);
-     backdrop-filter: blur(25px);
-     -webkit-backdrop-filter: blur(25px);
-     border-radius: 20px;
-     border: 1px solid rgba(0, 0, 0, 0.08);
-     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-     padding: 2rem;
-     max-width: 650px;
+     background: rgba(3, 48, 56, 0.70);
+     /* lighter glass */
+     backdrop-filter: blur(14px);
+     -webkit-backdrop-filter: blur(14px);
+     border-radius: 12px;
+     border: none;
+     box-shadow:
+          0 6px 20px rgba(0, 0, 0, 0.45),
+          /* outer lift */
+          inset -6px 0 12px rgba(0, 193, 193, 0.12),
+          /* left cyan glow */
+          inset 0 -6px 12px rgba(0, 193, 193, 0.12);
+     /* bottom cyan glow */
+     padding: 1.75rem 2rem;
+     max-width: 600px;
      width: 90%;
      text-align: left;
-     color: #1a1a1a;
+     color: #e5f2f3;
      font-size: 1rem;
-     line-height: 1.6;
+     line-height: 1.75;
 }
 
 
 .popup h2 {
-     font-size: 1.6rem;
+     font-size: 1.5rem;
      margin-bottom: 1rem;
-     color: #202020;
+     color: #f6fcfd;
 }
 
 .popup strong {
      font-weight: 600;
-     color: #000;
+     color: #fafafa;
 }
 
 .popup a {
-     color: #9f6a0f;
+     color: var(--primary);
      text-decoration: none;
      font-weight: 500;
 }
 
 .popup a:hover {
-     text-decoration: underline;
+     color: var(--primary-hover);
 }
 
 .pub-item {
@@ -82,12 +92,12 @@
      background: transparent;
      border: none;
      cursor: pointer;
-     color: #040404;
+     color: var(--text);
      transition: color 0.2s ease;
 }
 
 .close-button:hover {
-     color: rgb(29, 167, 156);
+     color: var(--primary);
 }
 
 .cv-download-container {
@@ -96,31 +106,14 @@
      margin-top: 2.5rem;
 }
 
-.cv-download-button {
-     display: inline-flex;
-     align-items: center;
-     gap: 0.5rem;
-     background: rgba(255, 255, 255, 0.1);
-     border: 1px solid rgba(255, 255, 255, 0.2);
-     color: #ffffff;
-     font-weight: 500;
-     font-size: 0.95rem;
-     padding: 0.75rem 1.6rem;
-     border-radius: 12px;
-     backdrop-filter: blur(10px);
-     text-decoration: none;
-     transition: all 0.3s ease;
-     box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
-}
-
-.cv-download-button:hover {
-     background: rgba(0, 255, 255, 0.15);
-     color: #00c1c1;
-     transform: translateY(-2px);
-     box-shadow: 0 8px 24px rgba(0, 255, 255, 0.2);
-}
+/* download button now uses .primary-btn global style */
 
 .download-icon {
      transform: translateY(1px);
      stroke: currentColor;
+}
+
+.popup p,
+.popup li {
+     color: #d3e0e2;
 }

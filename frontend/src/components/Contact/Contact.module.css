@@ -7,22 +7,25 @@
 }
 
 .contact-card {
-     background: rgba(255, 255, 255, 0.75);
-     backdrop-filter: blur(20px);
-     -webkit-backdrop-filter: blur(20px);
-     border-radius: 20px;
-     padding: 1rem 10rem;
-     max-width: 600px;
+     background: rgba(3, 48, 56, 0.75);
+     /* teal glass */
+     backdrop-filter: blur(14px);
+     -webkit-backdrop-filter: blur(14px);
+     border-radius: 12px;
+     padding-inline: clamp(1rem, 4vw, 6rem);
+     padding-block: 2rem;
+     max-width: 550px;
      width: 90%;
-     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
      text-align: center;
-     color: #1a1a1a;
+     color: #e5f2f3;
 }
 
 .contact-card h2 {
-     padding: 1rem 0.5rem;
-     font-size: 2rem;
-     margin-bottom: 2rem;
+     padding: 0 0 1.5rem;
+     font-size: 1.6rem;
+     margin: 0 auto 1.5rem;
+     color: #f6fcfd;
 }
 
 .contact-form input,
@@ -30,29 +33,24 @@
      width: 100%;
      padding: 0.75rem 1rem;
      margin-bottom: 1rem;
-     border: 1px solid rgba(0, 0, 0, 0.1);
-     border-radius: 10px;
+     border: 1px solid rgba(0, 193, 193, 0.25);
+     border-radius: 8px;
      font-size: 1rem;
-     font-family: 'Invention', sans-serif;
-     background: rgba(255, 255, 255, 0.9);
-     color: #1a1a1a;
+     font-family: var(--ff-body);
+     background: rgba(255, 255, 255, 0.1);
+     color: var(--text);
      resize: vertical;
 }
 
-.contact-form button {
-     padding: 0.75rem 2rem;
-     border-radius: 10px;
-     border: none;
-     font-size: 1rem;
-     font-weight: bold;
-     background-color: #0e8178;
-     color: white;
-     cursor: pointer;
-     transition: background-color 0.3s ease;
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+     color: rgba(255, 255, 255, 0.6);
 }
 
-.contact-form button:hover {
-     background-color: #08655e;
+/* button styling moved to .primary-btn in utilities.css */
+
+.sendBtn span {
+     display: inline-block;
 }
 
 .social-links {
@@ -63,11 +61,11 @@
 }
 
 .social-links a {
-     font-size: 2rem;
-     color: #0e8178;
+     font-size: 1.8rem;
+     color: var(--primary);
      transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-     color: #064944;
+     color: var(--primary-hover);
 }

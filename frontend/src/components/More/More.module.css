@@ -1,0 +1,39 @@
+.wrapper {
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 2rem;
+}
+
+.card {
+     background: rgba(3, 48, 56, 0.75);
+     backdrop-filter: blur(14px);
+     -webkit-backdrop-filter: blur(14px);
+     border-radius: 12px;
+     border: 1px solid rgba(0, 193, 193, 0.25);
+     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+     width: min(480px, 90%);
+     text-align: center;
+     padding: 2.5rem 2rem;
+     color: #e5f2f3;
+     display: flex;
+     flex-direction: column;
+     gap: 1.25rem;
+}
+
+.card h2 {
+     margin: 0;
+     font-size: 1.6rem;
+     color: #f6fcfd;
+}
+
+.card p {
+     margin: 0;
+     font-size: 1rem;
+     line-height: 1.6;
+}
+
+.card svg {
+     color: var(--primary);
+}

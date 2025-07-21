@@ -34,7 +34,7 @@ const Popup = ({ title, text, showImage, onClose }) => {
             <a
               href="/public/Olga_Kotova_CV_Mar_2025.pdf"
               download
-              className={styles['cv-download-button']}
+              className="primary-btn"
             >
               <span>Download CV</span>
               <svg
