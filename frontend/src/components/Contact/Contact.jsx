@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Header from '../Header/Header';
 import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { Send } from 'lucide-react';
 import styles from './Contact.module.css';
@@ -35,7 +34,6 @@ const Contact = () => {
 
   return (
     <div>
-      <Header />
       <main className={styles["contact-main"]}>
         <div className={styles["contact-card"]}>
           <h2>Contact Me</h2>

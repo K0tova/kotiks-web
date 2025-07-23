@@ -5,6 +5,7 @@
      color: var(--text);
      text-align: center;
      margin-top: 4rem;
+     margin-bottom: 1rem;
      letter-spacing: -0.02em;
      max-width: 12ch;
 }
@@ -76,6 +77,10 @@
      padding: 0 2rem;
 }
 
+.hero .spaced-text {
+     margin-bottom: 3rem;
+}
+
 .cardsSection {
      min-height: 100vh;
      padding: 2rem 2rem;
@@ -86,7 +91,7 @@
 }
 
 .scrollBtn {
-     margin-top: 0;
+     margin-top: 3.5rem;
      background: none;
      border: none;
      color: var(--primary);
@@ -104,4 +109,46 @@
      50% {
           transform: translateY(6px);
      }
+}
+
+.ctaRow {
+     display: flex;
+     gap: 2rem;
+     justify-content: center;
+     margin-top: 3rem;
+}
+
+.ctaRow button {
+     padding: 0.6rem 1.2rem;
+     font-family: var(--ff-heading);
+     font-size: 1rem;
+     color: var(--text);
+     background: rgba(0, 193, 193, 0.08);
+     border: 1px solid rgba(0, 193, 193, 0.15);
+     backdrop-filter: blur(10px);
+     -webkit-backdrop-filter: blur(10px);
+     border-radius: 8px;
+     cursor: pointer;
+     transition: transform 0.25s ease, box-shadow 0.25s ease;
+     box-shadow:
+          inset 0 4px 12px rgba(255, 255, 255, 0.04),
+          inset 0 -4px 12px rgba(0, 0, 0, 0.15),
+          0 8px 24px rgba(0, 193, 193, 0.25);
+     width: 140px;
+     text-align: center;
+}
+
+.ctaRow button:hover {
+     transform: translateY(-4px) scale(1.02);
+     background: rgba(0, 193, 193, 0.15);
+     box-shadow: 0 0 12px rgba(0, 193, 193, 0.45), 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.contactSection {
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     padding: 2rem 1rem 6rem;
 }

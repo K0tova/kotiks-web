@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Header from '../Header/Header';
 import Popup from '../Popup/Popup';
+import Contact from '../Contact/Contact';
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.css';
 import { FiChevronDown } from 'react-icons/fi';
 import { Briefcase, BookOpen, FileText, Rocket } from 'lucide-react';
+import ScrollIndicator from '../ScrollIndicator/ScrollIndicator';
 
 const Home = () => {
   const [popup, setPopup] = useState(null);
+  const cardsRef = useRef(null);
+  const contactRef = useRef(null);
+  const navigate = useNavigate();
+  const heroRef = useRef(null);
 
   const content = {
     'Work Experience': `I am a Data Science expert with nearly **4 years experience** in top-tier management consulting firm (BCG).<br /><br />
@@ -36,10 +43,15 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      <ScrollIndicator sections={[
+        { name: 'Home', ref: heroRef },
+        { name: 'About', ref: cardsRef },
+        { name: 'Contact', ref: contactRef },
+      ]}
+      />
       <main>
         {/* Hero Section */}
-        <section className={styles.hero}>
+        <section ref={heroRef} className={styles.hero}>
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,6 +60,15 @@ const Home = () => {
             <h2 className={styles["home-title"]}>Olga Kotova</h2>
             <p className="spaced-text">I help turn Data into Decisions <br />
               and Strategy into Action</p>
+
+            {/* CTA buttons */}
+            <div className={styles.ctaRow}>
+              <button onClick={() => cardsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
+                About me
+              </button>
+              <button onClick={() => contactRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>Contact</button>
+              <button onClick={() => navigate('/more')}>More</button>
+            </div>
           </motion.div>
           <button
             aria-label="Scroll to content"
@@ -59,7 +80,7 @@ const Home = () => {
         </section>
 
         {/* Cards Section */}
-        <section className={styles.cardsSection}>
+        <section ref={cardsRef} className={styles.cardsSection}>
           <div className={styles.buttons}>
             {Object.keys(content).map((key) => (
               <button
@@ -95,6 +116,11 @@ const Home = () => {
             onClose={() => setPopup(null)}
           />
         )}
+
+        {/* Contact Section */}
+        <section ref={contactRef} className={styles.contactSection}>
+          <Contact />
+        </section>
       </main>
     </div>
   );
