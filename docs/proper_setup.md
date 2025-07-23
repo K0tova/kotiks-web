@@ -1,12 +1,13 @@
-# Proposed Docker-Compose & Nginx Setup
+# Local Docker-Compose Setup & Deployment Overview
+This guide explains how the project runs **locally** using Docker Compose and how it is **deployed** today.
 
-This document outlines the **changes** we will introduce to run the entire stack — FastAPI backend, React (Vite) frontend, and Nginx reverse-proxy — with a single
-
-```bash
-docker compose up --build
-```
-
-It also explains the different behaviour in **development vs. production** modes.
+* Local development → one command (`docker compose -f docker-compose.dev.yml up --build`) spins up:
+  * FastAPI backend (hot-reload)
+  * Vite frontend (hot-reload)
+  * Nginx reverse-proxy — single entry-point on 5174
+* Production → the React frontend is automatically built & hosted by **Vercel** at
+  `https://kotiks-web.vercel.app/` whenever you push to `main`.
+  The FastAPI backend remains containerised and can be deployed to any Docker-friendly host (Fly.io, Render, a VPS, etc.).
 
 ---
 
@@ -17,8 +18,7 @@ It also explains the different behaviour in **development vs. production** modes
 | `backend/Dockerfile` | Multi-stage image: installs Poetry deps → copies code → runs **gunicorn+uvicorn**. |
 | `frontend/Dockerfile` | Multi-stage: builds React app → serves static files with Nginx (prod) **or** starts Vite dev server (dev). |
 | `nginx/nginx.conf` | Reverse proxy: <br>• `/api/*` ⇒ `backend:8000` <br>• `/` (static) ⇒ built frontend assets. |
-| `docker-compose.yml` | Brings up **backend**, **frontend** (optional in prod), and **nginx**. |
-| `docker-compose.dev.yml` | Extends base compose for hot-reload dev experience (mounts source, uses `--reload` & Vite dev). |
+| `docker-compose.dev.yml` | Starts **backend**, **frontend**, and **nginx** for local development with hot-reload. |
 
 We keep the root `.env` for shared settings (`VITE_API_URL`, mail creds, etc.).
 
@@ -26,27 +26,26 @@ We keep the root `.env` for shared settings (`VITE_API_URL`, mail creds, etc.).
 
 ## 2. Service Behaviour
 
-### 2.1 Development (`docker compose -f docker-compose.yml -f docker-compose.dev.yml up`)
+### 2.1 Development (`docker compose -f docker-compose.dev.yml up --build`)
 
 | Service | Image | Command | Ports | Hot-reload |
 |---------|-------|---------|-------|------------|
 | **backend** | python:3.12-slim | `uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000` | 8000 | Yes (volume mount) |
-| **frontend** | node:20-alpine | `npm run dev -- --port 5174` | 5174 | Yes (volume mount) |
+| **frontend** | node:20-alpine | `npm run dev -- --port 5175` | 5175 * | Yes (volume mount) |
 | **nginx** | nginx:alpine | dev-specific config (<http://localhost:5174>, proxies to 5174/8000) | 5174 | Reload on container restart |
 
 Access:
 * Frontend dev UI → <http://localhost:5174>
 * Backend docs (FastAPI) → <http://localhost:8000/docs>
 
-### 2.2 Production / Deployment (`docker compose up --build`)
+### 2.2 Production deployment (current)
 
-| Service | Image | Command | Ports |
-|---------|-------|---------|-------|
-| **backend** | `kotiks-web-backend` | `gunicorn -k uvicorn.workers.UvicornWorker -w 4 -b 0.0.0.0:8000 backend.main:app` | 8000 |
-| **frontend-build** | node builder stage (build only) | N/A (artifacts copied) | — |
-| **nginx** | nginx:alpine | serves built frontend & proxies `/api` to backend | 5174 |
+| Component | Platform | Notes |
+|-----------|----------|-------|
+| React frontend | **Vercel** | Auto-builds on every push to `main`, lives at `https://kotiks-web.vercel.app/`. Preview deployments are created for PR branches. |
+| FastAPI backend | Any Docker host | Build the `backend` image locally or via CI and deploy to Fly.io, Render, a VPS, etc. Remember to allow CORS from the Vercel domain. |
 
-The **frontend** dev container is *not* started; the static React build is copied into Nginx’s `/usr/share/nginx/html` during image build.
+If you later decide to self-host the full stack, you can still create a production-grade Compose file similar to the one described in earlier versions of this document.
 
 ---
 
@@ -86,21 +85,17 @@ graph LR
 
 ### First-time setup
 ```bash
-# Build and run everything for local development
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+# Build and run the local dev stack (FastAPI + Vite + Nginx)
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 ### Day-to-day development
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+docker compose -f docker-compose.dev.yml up
 ```
 Edit code; backend & frontend reload automatically.
 
-### Production image build & run (local test)
-```bash
-docker compose up --build
-```
-Visit <http://localhost:5174> – you’ll see the built React site, and API requests go to `/api`.
+*(Container-based production workflow removed – see Deployment table above for the current approach.)*
 
 ---
 
@@ -117,87 +112,4 @@ After merging these files, `docker compose up` becomes the single entry-point fo
 
 ---
 
-## 7. Example production deployment workflow
-
-Below is a common pattern for shipping the app to a cloud VM / Droplet.
-You can adapt the registry or CI provider to your needs.
-
-### 7.1 CI / Image build & push (GitHub Actions idea)
-
-```yaml
-name: build-and-push
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build & push (multi-platform)
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          tags: |
-            ghcr.io/<org>/kotiks-web-backend:latest
-            ghcr.io/<org>/kotiks-web-nginx:latest
-          targets: backend,nginx  # defined in docker-compose.yml build section
-```
-
-### 7.2 Server preparation (one-off)
-
-```bash
-ssh ubuntu@your_server
-sudo apt update && sudo apt install docker docker-compose-plugin -y
-
-# add user to docker group if desired
-```
-
-### 7.3 Runtime files on the server
-
-```
-/opt/kotiks-web/
-  ├── docker-compose.yml          # same as in repo, but image tags pin to :latest
-  ├── .env.production             # EMAIL_ADDRESS, etc.
-  └── certs/                      # optional, if you handle TLS yourself
-```
-
-### 7.4 Start / update the stack
-
-```bash
-cd /opt/kotiks-web
-docker compose pull      # get new backend / nginx images
-docker compose up -d     # start (or restart) containers in the background
-```
-
-Nginx will listen on **port 5174** (or 80/443 if you adjust the compose file) and proxy `/api` to the backend container.  If you need HTTPS, either:
-
-1. Terminate TLS outside Docker (e.g. with Cloudflare or an ELB), or
-2. Use a companion such as [nginx-proxy-letsencrypt](https://github.com/nginx-proxy/acme-companion) or [Caddy] that issues certs automatically.
-
-### 7.5 Zero-downtime update cheat-sheet
-
-```bash
-docker compose pull           # fetch new images
-docker compose up -d --no-deps --build backend nginx   # recreate only changed services
-docker image prune -f         # clean dangling layers
-```
-
-### 7.6 Roll-back
-
-Use Docker’s image history or tags:
-
-```bash
-docker compose down
-docker compose up -d nginx backend # but pin image tags to the previous known-good SHA
-```
-
-Following these steps, your production server runs the same container images the CI built and tested, ensuring parity between environments while still exposing the site on **http://<your_domain>:5174** (or 443 for HTTPS).
+<!-- The remaining sections describing a container-based production rollout are kept for reference but are **not** used in the current Vercel-based deployment. -->
