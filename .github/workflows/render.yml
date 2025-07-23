@@ -1,4 +1,4 @@
-name: Render backend preview
+name: Render Preview
 on:                       # run for every PR targeting main
   pull_request:
     branches: [ main ]
@@ -17,7 +17,11 @@ jobs:
       - name: Trigger Render deploy for this commit
         run: |
           curl -s -X POST "$RENDER_HOOK_URL&branch=${{ github.head_ref }}&commit=${{ github.sha }}"
-      
+
+      # NEW: install jq for JSON parsing
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Wait until preview is live
         shell: bash
         run: |
