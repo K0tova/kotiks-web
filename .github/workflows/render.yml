@@ -36,7 +36,7 @@ jobs:
               -H "Authorization: Bearer $RENDER_API_KEY" \
               "https://api.render.com/v1/deploys/$DEPLOY_ID")
 
-            state=$(echo "$data" | jq -r '.deploy.status')
+            state=$(echo "$data" | jq -r '.status')
             echo "[$(date)] status: $state"
 
             case "$state" in
