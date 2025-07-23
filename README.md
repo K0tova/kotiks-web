@@ -51,6 +51,14 @@ The site is already live at the URL above.
 • **Auto-deploy :** any push/merge to `main` triggers a new Vercel build.
 • **Manual redeploy :** click **“Redeploy”** in the Vercel dashboard if you ever need to rebuild a specific commit.
 
+Environment variable to set in Vercel:
+
+| Key | Value |
+|-----|-------|
+| `VITE_API_URL` | `https://<your-render-service>.onrender.com` |
+
+Ensure you redeploy the frontend after adding / updating this variable.
+
 ### Backend
 
 The FastAPI backend is still containerised. You can run it locally with the Compose stack (see Quick start) or deploy the `backend` service image to any platform that supports Docker containers (Fly.io, Render, Digital Ocean, etc.).

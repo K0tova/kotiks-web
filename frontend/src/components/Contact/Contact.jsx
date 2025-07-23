@@ -13,7 +13,8 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/send-email', {
+      const API = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${API}/api/send-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, message }),
