@@ -3,6 +3,7 @@
 Personal website project – React (Vite) + FastAPI – containerised for **local development** with Docker Compose. The React frontend is deployed via **Vercel** on every push to `main`.
 
 **Production URL:** https://kotiks-web.vercel.app/
+**Backend API (Render):** https://<your-render-service>.onrender.com
 
 ## Quick start (development)
 
@@ -61,9 +62,14 @@ Ensure you redeploy the frontend after adding / updating this variable.
 
 ### Backend
 
-The FastAPI backend is still containerised. You can run it locally with the Compose stack (see Quick start) or deploy the `backend` service image to any platform that supports Docker containers (Fly.io, Render, Digital Ocean, etc.).
+The FastAPI backend runs on **Render** using the same Docker image you build locally.
 
-> **Render users**: The container expects `gunicorn` (now listed in `backend/pyproject.toml`). Make sure your Render service uses port **8000** and that you’ve set `EMAIL_ADDRESS` / `EMAIL_PASSWORD` secrets.
+Steps:
+1. Create a Render *Web Service* from this repo (root directory `./`, Dockerfile path `backend/Dockerfile`).
+2. Port: **8000** (Render auto-detects).
+3. Environment vars: `EMAIL_ADDRESS`, `EMAIL_PASSWORD`.
+4. Render gives you a URL like `https://kotiks-web-backend.onrender.com` — add this to Vercel as `VITE_API_URL`.
+
 
 ## Repo layout
 
