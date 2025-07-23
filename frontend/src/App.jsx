@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Home from './components/Home/Home';
-import Contact from './components/Contact/Contact';
 import More from './components/More/More';
 
 const PageFade = ({ children }) => (
@@ -22,7 +21,6 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageFade><Home /></PageFade>} />
-        <Route path="/contact" element={<PageFade><Contact /></PageFade>} />
         <Route path="/more" element={<PageFade><More /></PageFade>} />
       </Routes>
     </AnimatePresence>

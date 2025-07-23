@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../Header/Header';
 import { Hammer } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import styles from './More.module.css';
@@ -7,7 +6,6 @@ import styles from './More.module.css';
 export default function More() {
      return (
           <>
-               <Header />
                <main className={styles.wrapper}>
                     <div className={styles.card}>
                          <Hammer size={48} strokeWidth={1.5} />
