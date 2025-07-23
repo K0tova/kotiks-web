@@ -31,13 +31,16 @@ jobs:
           DEPLOY_ID='${{ steps.deploy.outputs.deploy_id }}'
           echo "Polling deploy $DEPLOY_ID …"
           for i in {1..40}; do     # 10-min timeout
-            data=$(curl -s \
+            http_code=$(curl -s -o resp.json -w "%{http_code}" \
               -H "Accept: application/json" \
               -H "Authorization: Bearer $RENDER_API_KEY" \
               "https://api.render.com/v1/deploys/$DEPLOY_ID")
 
-            echo "Raw: $data"
-            state=$(echo "$data" | jq -r '.status // .deploy.status // empty')
+            if [ "$http_code" = "404" ]; then
+              echo "Deploy not found yet (404). Waiting…"; sleep 15; continue; fi
+
+            cat resp.json
+            state=$(jq -r '.status // .deploy.status // empty' resp.json)
             echo "[$(date)] status: $state"
 
             case "$state" in
