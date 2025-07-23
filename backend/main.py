@@ -16,9 +16,15 @@ app = FastAPI()
 # Allow all typical Vite dev ports (5173‒5179) during local development
 vite_ports = [f"http://localhost:{p}" for p in range(5173, 5180)]
 
+# Production frontend hosted on Vercel
+production_origins = [
+    "https://kotiks-web.vercel.app",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=vite_ports,
+    allow_origins=vite_ports + production_origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",  # preview deployments
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],

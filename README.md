@@ -1,6 +1,8 @@
 # Kotiks Web
 
-Personal website project – React (Vite) + FastAPI – now containerised with Docker Compose.
+Personal website project – React (Vite) + FastAPI – containerised for **local development** with Docker Compose. The React frontend is deployed via **Vercel** on every push to `main`.
+
+**Production URL:** https://kotiks-web.vercel.app/
 
 ## Quick start (development)
 
@@ -9,7 +11,7 @@ Personal website project – React (Vite) + FastAPI – now containerised with D
 cp .env.example .env     # fill EMAIL_ADDRESS, EMAIL_PASSWORD, etc.
 
 # build & run with hot-reload
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 * App URL (via Nginx):   http://localhost:5174
@@ -41,25 +43,19 @@ Stop everything with `Ctrl + C`.
 | http://localhost:5174 | React UI served by Vite (hot-reload) via Nginx reverse-proxy |
 | http://localhost:8000/docs | FastAPI interactive API docs (Swagger UI) |
 
-## Production build & run locally
+## Deployment
 
-```bash
-# build optimised images & start nginx reverse-proxy on 5174
-docker compose up --build
-# open http://localhost:5174
-```
+### Frontend (Vercel)
 
-The bundled React site is served through Nginx on the **same 5174 port**; `/api` calls are forwarded to the backend running inside the Compose network.
+The site is already live at the URL above.
+• **Auto-deploy :** any push/merge to `main` triggers a new Vercel build.
+• **Manual redeploy :** click **“Redeploy”** in the Vercel dashboard if you ever need to rebuild a specific commit.
 
-This produces three images:
+### Backend
 
-* `kotiks-web-backend` – Gunicorn + UvicornWorker (FastAPI)
-* `kotiks-web-frontend-build` – intermediate build stage
-* `kotiks-web-nginx` – serves the compiled React app and proxies `/api` to backend
+The FastAPI backend is still containerised. You can run it locally with the Compose stack (see Quick start) or deploy the `backend` service image to any platform that supports Docker containers (Fly.io, Render, Digital Ocean, etc.).
 
-## Deploying
-
-See `docs/proper_setup.md` §7 for a full CI/CD example using GitHub Actions, image registry, and zero-downtime updates on a cloud VM.
+> **Render users**: The container expects `gunicorn` (now listed in `backend/pyproject.toml`). Make sure your Render service uses port **8000** and that you’ve set `EMAIL_ADDRESS` / `EMAIL_PASSWORD` secrets.
 
 ## Repo layout
 
