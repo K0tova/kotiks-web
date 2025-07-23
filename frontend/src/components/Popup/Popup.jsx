@@ -32,7 +32,7 @@ const Popup = ({ title, text, showImage, onClose }) => {
         {title === 'Work Experience' && (
           <div className={styles['cv-download-container']}>
             <a
-              href="/public/Olga_Kotova_CV_Mar_2025.pdf"
+              href="/Olga_Kotova_CV_Mar_2025.pdf"
               download
               className="primary-btn"
             >
