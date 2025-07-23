@@ -43,7 +43,7 @@ Access:
 | Component | Platform | Notes |
 |-----------|----------|-------|
 | React frontend | **Vercel** | Auto-builds on every push to `main`, lives at `https://kotiks-web.vercel.app/`. Preview deployments are created for PR branches. |
-| FastAPI backend | Any Docker host | Build the `backend` image locally or via CI and deploy to Fly.io, Render, a VPS, etc. Remember to allow CORS from the Vercel domain. |
+| FastAPI backend | **Render** (Docker Web Service) | Built from `backend/Dockerfile`, runs on port 8000. Secrets (`EMAIL_ADDRESS`, `EMAIL_PASSWORD`) set in Render dashboard. Remember to allow CORS from the Vercel domain. |
 
 If you later decide to self-host the full stack, you can still create a production-grade Compose file similar to the one described in earlier versions of this document.
 
@@ -94,22 +94,4 @@ docker compose -f docker-compose.dev.yml up --build
 docker compose -f docker-compose.dev.yml up
 ```
 Edit code; backend & frontend reload automatically.
-
-*(Container-based production workflow removed – see Deployment table above for the current approach.)*
-
 ---
-
-## 6. Migration steps (what we will commit next)
-
-1. Add **backend/Dockerfile** (Poetry install, multi-stage).
-2. Add **frontend/Dockerfile** (Vite build; optional dev stage).
-3. Add **nginx** folder with `nginx.conf` and `Dockerfile` (copies config + built assets).
-4. Add **docker-compose.yml** + **docker-compose.dev.yml**.
-5. Update docs & README to use Compose commands.
-6. Remove `concurrently` root script if desired — Compose replaces it.
-
-After merging these files, `docker compose up` becomes the single entry-point for both development and deployment scenarios.
-
----
-
-<!-- The remaining sections describing a container-based production rollout are kept for reference but are **not** used in the current Vercel-based deployment. -->
