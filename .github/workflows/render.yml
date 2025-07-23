@@ -1,0 +1,35 @@
+name: Render backend preview
+on:                       # run for every PR targeting main
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    env:
+      # ①  add these three secrets in your repo settings
+      RENDER_HOOK_URL:  ${{ secrets.RENDER_HOOK_URL }}      # https://api.render.com/deploy/…
+      RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}   # srv-d20c86vgi27c73ceh0l0
+      RENDER_API_KEY:   ${{ secrets.RENDER_API_KEY }}       # personal API token
+
+    steps:
+      - name: Trigger Render deploy for this commit
+        run: |
+          curl -s -X POST "$RENDER_HOOK_URL&branch=${{ github.head_ref }}&commit=${{ github.sha }}"
+      
+      - name: Wait until preview is live
+        shell: bash
+        run: |
+          echo "Polling Render service status…"
+          for i in {1..40}; do   # ≈10 minutes max (40×15 s)
+            status=$(curl -s -H "Accept: application/json" \
+              -H "Authorization: Bearer $RENDER_API_KEY" \
+              "https://api.render.com/v1/services/$RENDER_SERVICE_ID" \
+              | jq -r '.service.status' )
+            echo "[$(date)] status: $status"
+            if [ "$status" = "live" ];   then exit 0; fi
+            if [ "$status" = "failed" ]; then exit 1; fi
+            sleep 15
+          done
+          echo "Timed out waiting for Render"; exit 1
