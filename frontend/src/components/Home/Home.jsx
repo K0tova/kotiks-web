@@ -23,7 +23,7 @@ const Home = () => {
   const content = {
     'Work Experience': `I am a Data Science expert with nearly **4 years experience** in top-tier management consulting firm (BCG).<br /><br />
     As a Senior Data Scientist at BCG, I operate at the intersection of <small>advanced analytics, machine learning and strategic consulting</small>-collaborating with cross-functional teams to not only develop data-driven solutions, but also to shape and execute the long-term technology vision for our clients.<br /><br />
-    I partner closely with stakeholders to <small>define tech strategies, design scalable solutions</small>, and <small>ensure seamless integration into business operations</small>, driving tangible and assessable impact.`,
+    I partner closely with stakeholders to <small>define technical strategies, design scalable solutions</small>, and <small>ensure seamless integration into business operations</small>, driving tangible and assessable impact.`,
 
     'Education': `• **BSc in Physics** – Lomonosov Moscow State University (2016–2020). GPA (5.0/5.0).
     <span class="indented"> **Thesis**: Determined photophysical parameters of NaGdF₄:Eu solid solutions using the Judd–Ofelt Theory.
