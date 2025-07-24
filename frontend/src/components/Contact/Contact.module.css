@@ -2,8 +2,9 @@
      display: flex;
      justify-content: center;
      align-items: center;
-     min-height: 90vh;
-     padding-top: 60px;
+     flex-direction: column;
+     padding-top: 0;
+     min-height: auto;
 }
 
 .contact-card {

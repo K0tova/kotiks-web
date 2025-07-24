@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.css';
 import { FiChevronDown } from 'react-icons/fi';
 import { Briefcase, BookOpen, FileText, Rocket } from 'lucide-react';
-import ScrollIndicator from '../ScrollIndicator/ScrollIndicator';
+import SectionSeparator from '../SectionSeparator/SectionSeparator';
 
 const Home = () => {
   const [popup, setPopup] = useState(null);
@@ -15,6 +15,8 @@ const Home = () => {
   const contactRef = useRef(null);
   const navigate = useNavigate();
   const heroRef = useRef(null);
+  const aboutSepId = 'about-sep';
+  const contactSepId = 'contact-sep';
 
   const content = {
     'Work Experience': `I am a Data Science expert with nearly **4 years experience** in top-tier management consulting firm (BCG).<br /><br />
@@ -43,12 +45,6 @@ const Home = () => {
 
   return (
     <div>
-      <ScrollIndicator sections={[
-        { name: 'Home', ref: heroRef },
-        { name: 'About', ref: cardsRef },
-        { name: 'Contact', ref: contactRef },
-      ]}
-      />
       <main>
         {/* Hero Section */}
         <section ref={heroRef} className={styles.hero}>
@@ -79,8 +75,12 @@ const Home = () => {
           </button>
         </section>
 
+        {/* Separator between Home and About (line only) */}
+        <SectionSeparator id={aboutSepId} label="" />
+
         {/* Cards Section */}
         <section ref={cardsRef} className={styles.cardsSection}>
+          <h2 className={styles.sectionHeading}>About Me</h2>
           <div className={styles.buttons}>
             {Object.keys(content).map((key) => (
               <button
@@ -108,6 +108,10 @@ const Home = () => {
             ))}
           </div>
         </section>
+
+        {/* Separator between About and Contact (line only) */}
+        <SectionSeparator id={contactSepId} label="" />
+
         {popup && (
           <Popup
             title={popup.title}
@@ -119,6 +123,7 @@ const Home = () => {
 
         {/* Contact Section */}
         <section ref={contactRef} className={styles.contactSection}>
+          <h2 className={styles.sectionHeading}>Contact Me</h2>
           <Contact />
         </section>
       </main>

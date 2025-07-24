@@ -36,7 +36,6 @@ const Contact = () => {
     <div>
       <main className={styles["contact-main"]}>
         <div className={styles["contact-card"]}>
-          <h2>Contact Me</h2>
           <form onSubmit={handleSubmit} className={styles["contact-form"]}>
             <input
               type="email"

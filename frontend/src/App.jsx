@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence, motion } from 'framer-motion';
 import Home from './components/Home/Home';
 import More from './components/More/More';
+import TopProgressBar from './components/TopProgressBar/TopProgressBar';
 
 const PageFade = ({ children }) => (
   <motion.div
@@ -30,6 +31,7 @@ function AnimatedRoutes() {
 function App() {
   return (
     <Router>
+      <TopProgressBar />
       <AnimatedRoutes />
     </Router>
   );
