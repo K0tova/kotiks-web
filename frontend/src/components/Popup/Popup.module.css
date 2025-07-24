@@ -128,10 +128,11 @@
      color: #d3e0e2;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
      .popup-svg {
           float: none;
-          width: 140px;
+          display: block;
+          width: 150px;
           margin: 0 auto 1.25rem auto;
      }
 }

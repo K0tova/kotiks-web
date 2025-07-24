@@ -56,7 +56,8 @@ const Home = () => {
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
             <AnimatedName text="Olga Kotova" />
-            <p className="spaced-text">I help turn Data into Decisions <br />
+            <p className="spaced-text">I help turn<br />
+              Data into Decisions<br />
               and Strategy into Action</p>
 
             {/* CTA buttons */}
