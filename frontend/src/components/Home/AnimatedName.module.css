@@ -17,6 +17,11 @@
      width: 0.35em;
 }
 
+.word {
+     display: inline-block;
+     white-space: nowrap;
+}
+
 @keyframes rise {
      0% {
           opacity: 0;

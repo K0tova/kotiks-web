@@ -108,6 +108,8 @@
      .contact-form input,
      .contact-form textarea {
           font-size: 0.95rem;
+          width: 90%;
+          margin-inline: auto;
      }
 
      .social-links {

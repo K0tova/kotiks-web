@@ -1,5 +1,6 @@
 .ladder {
      overflow: visible;
+     filter: drop-shadow(0 0 6px rgba(0, 193, 193, 0.6)) drop-shadow(0 0 12px rgba(0, 193, 193, 0.35));
 }
 
 .square {

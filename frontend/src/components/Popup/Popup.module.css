@@ -127,3 +127,11 @@
 .popup li {
      color: #d3e0e2;
 }
+
+@media (max-width: 480px) {
+     .popup-svg {
+          float: none;
+          width: 140px;
+          margin: 0 auto 1.25rem auto;
+     }
+}
