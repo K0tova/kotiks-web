@@ -102,6 +102,7 @@
      .contact-card {
           padding-inline: 1.25rem;
           padding-block: 2rem;
+          max-width: 420px;
      }
 
      .contact-form input,

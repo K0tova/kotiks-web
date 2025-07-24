@@ -6,13 +6,26 @@ const AnimatedName = ({ text }) => {
           <h2 className={styles.title} aria-label={text}>
                {text.split('').map((char, idx) => {
                     const isSpace = char === ' ';
+                    if (isSpace) {
+                         return (
+                              <React.Fragment key={idx}>
+                                   <span
+                                        className={`${styles.letter} ${styles.space}`}
+                                        style={{ animationDelay: `${idx * 0.06}s` }}
+                                   >
+                                        &nbsp;
+                                   </span>
+                                   <wbr />
+                              </React.Fragment>
+                         );
+                    }
                     return (
                          <span
                               key={idx}
-                              className={isSpace ? `${styles.letter} ${styles.space}` : styles.letter}
+                              className={styles.letter}
                               style={{ animationDelay: `${idx * 0.06}s` }}
                          >
-                              {isSpace ? '\u00A0' : char}
+                              {char}
                          </span>
                     );
                })}
