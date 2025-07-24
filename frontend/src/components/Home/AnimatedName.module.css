@@ -1,6 +1,6 @@
 .title {
      display: inline-block;
-     font-size: 4.8rem;
+     font-size: clamp(2.8rem, 10vw + 1rem, 4.8rem);
      font-weight: 400;
      color: #f8f9fa;
 }

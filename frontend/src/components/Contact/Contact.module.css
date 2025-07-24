@@ -97,3 +97,19 @@
 .social-links a:hover {
      color: var(--primary-hover);
 }
+
+@media (max-width: 480px) {
+     .contact-card {
+          padding-inline: 1.25rem;
+          padding-block: 2rem;
+     }
+
+     .contact-form input,
+     .contact-form textarea {
+          font-size: 0.95rem;
+     }
+
+     .social-links {
+          gap: 1.2rem;
+     }
+}
