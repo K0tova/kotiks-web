@@ -98,7 +98,7 @@ const response = await fetch(`${API}/send-email`, {
 #### 2.3  Correct static-file paths (already applied)
 
 Files placed in `frontend/public/` are served from `/`, so use
-`/Olga_Kotova_CV_Mar_2025.pdf` not `/public/…`.
+`/Olga_Kotova_CV_Jul_2025.pdf` not `/public/…`.
 
 #### 2.4  Process management during development
 

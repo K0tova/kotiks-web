@@ -20,6 +20,8 @@
      text-align: center;
      color: #e5f2f3;
      overflow: hidden;
+     overscroll-behavior: contain;
+     /* keeps scroll momentum inside the dialog */
 }
 
 .contact-card::before {

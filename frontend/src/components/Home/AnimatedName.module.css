@@ -1,0 +1,35 @@
+.title {
+     display: inline-block;
+     font-size: 3.5rem;
+     font-weight: 600;
+     color: #f8f9fa;
+}
+
+.letter {
+     display: inline-block;
+     opacity: 0;
+     transform: translateY(40%);
+     text-shadow: 0 0 6px rgba(0, 193, 193, 0.65), 0 0 12px rgba(0, 193, 193, 0.45);
+     animation: rise 0.45s forwards cubic-bezier(0.25, 0.8, 0.35, 1);
+}
+
+.space {
+     width: 0.35em;
+}
+
+@keyframes rise {
+     0% {
+          opacity: 0;
+          transform: translateY(40%) scale(0.8);
+     }
+
+     60% {
+          opacity: 1;
+          transform: translateY(-5%) scale(1.1);
+     }
+
+     100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+     }
+}

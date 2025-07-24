@@ -35,7 +35,7 @@ const Contact = () => {
   return (
     <div>
       <main className={styles["contact-main"]}>
-        <div className={styles["contact-card"]}>
+        <div className={styles["contact-card"]} data-aos="zoom-out-up">
           <form onSubmit={handleSubmit} className={styles["contact-form"]}>
             <input
               type="email"

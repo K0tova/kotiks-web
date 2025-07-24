@@ -24,7 +24,13 @@ export default function TopProgressBar() {
 
      return (
           <div className={styles.track}>
-               <div className={styles.bar} style={{ transform: `scaleX(${progress})` }} />
+               {/* background gradient changes based on scroll progress */}
+               <div
+                    className={styles.bar}
+                    style={{
+                         background: `linear-gradient(to right, rgba(0,193,193,0.9) 0%, rgba(0,193,193,0.9) ${progress * 100}%, rgba(0,193,193,0.15) ${progress * 100}%, rgba(0,193,193,0.15) 100%)`
+                    }}
+               />
           </div>
      );
 }

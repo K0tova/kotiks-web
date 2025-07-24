@@ -8,6 +8,8 @@ import styles from './Home.module.css';
 import { FiChevronDown } from 'react-icons/fi';
 import { Briefcase, BookOpen, FileText, Rocket } from 'lucide-react';
 import SectionSeparator from '../SectionSeparator/SectionSeparator';
+import Footer from '../Footer/Footer';
+import AnimatedName from './AnimatedName';
 
 const Home = () => {
   const [popup, setPopup] = useState(null);
@@ -38,7 +40,7 @@ const Home = () => {
       '**Application of Wavelet Neural Networks for Monitoring of Extraction of Carbon Multi-Functional Medical Nano-Agents from the Body**<br />Elsevier · Jan 1, 2018.',
     'Aspirations':
       'I’m passionate about building technology that doesn’t just work — but works for people. My aspiration is to continue operating at the intersection of data science, strategy, and societal impact.\n\n' +
-      'I’m especially drawn to the role of technology in public good — in fields like **health**, **sustainability-driven innovation across critical infrastructure sectors**, **governance**, and **education**. \n\nThis drive extends beyond my professional life: I’ve created a [free school for children at the Physics Faculty of MSU](http://ffactorial.phys.msu.ru/) during my university years, tutored orphans English through the [Amicus foundation](https://mgimo.ru/about/structure/student-org/amicus/?utm_source=google.com&utm_medium=organic&utm_campaign=google.com&utm_referrer=google.com), and actively supported initiatives to bring more women into STEM and consulting. I’ve also had the chance to speak publicly about education and opportunities after studies, including [interviewing Mr. Jack Ma (Alibaba founder)](https://www.youtube.com/watch?v=g25jcvtjZjA&t=1s) and giving multiple interviews on the topic — such as my [Oxford experience](https://www.youtube.com/watch?v=9SrI1BID21A&t=58s) and [how to get into Oxford & Cambridge](https://www.youtube.com/watch?v=iN04O1R5dN0&t=321s).\n\n' +
+      'I’m especially drawn to the role of technology in public good — in fields like **health**, **sustainability-driven innovation across critical infrastructure sectors**, **governance**, and **education**. \n\nThis drive extends beyond my professional life: I’ve created a [free school for children at the Physics Faculty of MSU](http://ffactorial.phys.msu.ru/) during my university years, tutored orphans English through the [Amicus foundation](https://mgimo.ru/about/structure/student-org/amicus/?utm_source=google.com&utm_medium=organic&utm_campaign=google.com&utm_referrer=google.com), and I’ve been actively supporting initiatives to bring more women into STEM and consulting. I’ve also had the chance to speak publicly about education and opportunities after studies, including [interviewing Mr.Jack Ma(Alibaba founder)](https://www.youtube.com/watch?v=g25jcvtjZjA&t=1s) and giving multiple interviews on the topic — such as my [Oxford experience](https://www.youtube.com/watch?v=9SrI1BID21A&t=58s) and [how to get into Oxford & Cambridge](https://www.youtube.com/watch?v=iN04O1R5dN0&t=321s).\n\n' +
       'As I grow, I aim to take on leadership roles that allow me to shape responsible tech development, mentor the next generation of talent, and contribute to a future where data empowers rather than excludes.'
 
   };
@@ -53,7 +55,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            <h2 className={styles["home-title"]}>Olga Kotova</h2>
+            <AnimatedName text="Olga Kotova" />
             <p className="spaced-text">I help turn Data into Decisions <br />
               and Strategy into Action</p>
 
@@ -127,6 +129,7 @@ const Home = () => {
           <Contact />
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

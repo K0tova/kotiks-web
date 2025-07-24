@@ -4,14 +4,15 @@
      left: 0;
      width: 100%;
      height: 20px;
-     background: rgba(20, 20, 20, 0.4);
+     background: rgba(10, 10, 10, 0.25);
      backdrop-filter: blur(10px);
      -webkit-backdrop-filter: blur(10px);
      display: flex;
      justify-content: center;
      align-items: center;
      font-size: 0.8rem;
-     color: #c0eae8;
+     color: rgba(175, 225, 225, 0.75);
+     text-shadow: 0 0 4px rgba(0, 193, 193, 0.25), 0 0 8px rgba(0, 193, 193, 0.15);
      z-index: 100;
      border-top: 1px solid rgba(255, 255, 255, 0.08);
 }

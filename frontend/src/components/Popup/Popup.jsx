@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { X } from 'lucide-react';
 import styles from './Popup.module.css';
 import profileImage from '../../../assets/images/profile.jpeg';
+import LadderSVG from './LadderSVG';
 
 const Popup = ({ title, text, showImage, onClose }) => {
+  // Lock body scroll when the popup is open
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -20,6 +30,10 @@ const Popup = ({ title, text, showImage, onClose }) => {
           <img src={profileImage} alt="Profile" className={styles['popup-img']} />
         )}
 
+        {title === 'Aspirations' && (
+          <LadderSVG className={styles['popup-svg']} />
+        )}
+
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           components={{
@@ -32,7 +46,7 @@ const Popup = ({ title, text, showImage, onClose }) => {
         {title === 'Work Experience' && (
           <div className={styles['cv-download-container']}>
             <a
-              href="/Olga_Kotova_CV_Mar_2025.pdf"
+              href="/Olga_Kotova_CV_Jul_2025.pdf"
               download
               className="primary-btn"
             >

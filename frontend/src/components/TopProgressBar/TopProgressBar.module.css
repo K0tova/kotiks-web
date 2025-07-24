@@ -12,9 +12,7 @@
 .bar {
      height: 100%;
      width: 100%;
-     background: rgba(0, 193, 193, 0.18);
-     box-shadow: 0 0 8px #00c1c1, 0 0 16px rgba(0, 193, 193, 0.35);
-     transform-origin: left center;
-     transform: scaleX(0);
-     transition: transform 0.2s ease-out;
+     background: rgba(0, 193, 193, 0.15);
+     box-shadow: 0 0 6px rgba(0, 193, 193, 0.4);
+     transition: background 0.2s linear;
 }
