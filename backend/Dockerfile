@@ -33,4 +33,5 @@ ENV PYTHONUNBUFFERED=1 \
 
 EXPOSE 8000
 
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-w", "4", "-b", "0.0.0.0:8000", "backend.main:app"]
+# --timeout 120: allow email (SMTP) to finish; default 30s causes WORKER TIMEOUT and 502
+CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-w", "2", "--timeout", "120", "-b", "0.0.0.0:8000", "backend.main:app"]

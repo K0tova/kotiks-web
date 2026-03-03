@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Home from './components/Home/Home';
@@ -29,6 +29,15 @@ function AnimatedRoutes() {
 }
 
 function App() {
+  // Wake up the backend (e.g. Render) as soon as someone lands on the site,
+  // so it has time to start before they submit the contact form.
+  useEffect(() => {
+    const api = import.meta.env.VITE_API_URL;
+    if (api) {
+      fetch(`${api}/api/health`, { method: 'GET' }).catch(() => {});
+    }
+  }, []);
+
   return (
     <Router>
       <TopProgressBar />
