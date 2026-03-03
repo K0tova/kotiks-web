@@ -21,9 +21,13 @@ const Home = () => {
   const contactSepId = 'contact-sep';
 
   const content = {
-    'Work Experience': `I am a Data Science expert with nearly **4 years experience** in top-tier management consulting firm (BCG).<br /><br />
-    As a Senior Data Scientist at BCG, I operate at the intersection of <small>advanced analytics, machine learning and strategic consulting</small>-collaborating with cross-functional teams to not only develop data-driven solutions, but also to shape and execute the long-term technology vision for our clients.<br /><br />
-    I partner closely with stakeholders to <small>define technical strategies, design scalable solutions</small>, and <small>ensure seamless integration into business operations</small>, driving tangible and assessable impact.`,
+    'Work Experience': `My work sits at the intersection of advanced analytics, AI, and complex operating environments. At BCG X, I lead multidisciplinary teams across pharmaceutical R&D, healthcare, mining, and industrial sectors — shaping AI initiatives from initial problem framing through to operational implementation.
+
+In consulting, leading data science means more than technical oversight. It involves structuring ambiguous challenges, setting direction across technical and business streams, aligning diverse stakeholders, and ensuring solutions are economically sound and operationally viable. I work closely with executive teams to connect analytical ambition with organisational reality.
+
+I focus on building AI systems that are rigorous, scalable, and embedded within decision-making processes. That includes combining machine learning, optimisation, and generative AI with a clear understanding of financial drivers, regulatory constraints, and long-term strategy.
+
+Across engagements, my role balances technical depth with business judgement — guiding teams, navigating trade-offs, and ensuring that complex analytical work translates into sustainable impact.`,
 
     'Education': `• **BSc in Physics** – Lomonosov Moscow State University (2016–2020). GPA (5.0/5.0).
     <span class="indented"> **Thesis**: Determined photophysical parameters of NaGdF₄:Eu solid solutions using the Judd–Ofelt Theory.
@@ -39,9 +43,9 @@ const Home = () => {
       '**Определение фотофизических параметров твердых растворов NaGdF4:Eu в суспензиях с помощью теории Джадда-Офельта**<br />ЖЭТФ Письма · Jan 1, 2020.\n\n' +
       '**Application of Wavelet Neural Networks for Monitoring of Extraction of Carbon Multi-Functional Medical Nano-Agents from the Body**<br />Elsevier · Jan 1, 2018.',
     'Aspirations':
-      'I’m passionate about building technology that doesn’t just work — but works for people. My aspiration is to continue operating at the intersection of data science, strategy, and societal impact.\n\n' +
-      'I’m especially drawn to the role of technology in public good — in fields like **health**, **sustainability-driven innovation across critical infrastructure sectors**, **governance**, and **education**. \n\nThis drive extends beyond my professional life: I’ve created a [free school for children at the Physics Faculty of MSU](http://ffactorial.phys.msu.ru/) during my university years, tutored orphans English through the [Amicus foundation](https://mgimo.ru/about/structure/student-org/amicus/?utm_source=google.com&utm_medium=organic&utm_campaign=google.com&utm_referrer=google.com), and I’ve been actively supporting initiatives to bring more women into STEM and consulting. I’ve also had the chance to speak publicly about education and opportunities after studies, including [interviewing Mr.Jack Ma(Alibaba founder)](https://www.youtube.com/watch?v=g25jcvtjZjA&t=1s) and giving multiple interviews on the topic — such as my [Oxford experience](https://www.youtube.com/watch?v=9SrI1BID21A&t=58s) and [how to get into Oxford & Cambridge](https://www.youtube.com/watch?v=iN04O1R5dN0&t=321s).\n\n' +
-      'As I grow, I aim to take on leadership roles that allow me to shape responsible tech development, mentor the next generation of talent, and contribute to a future where data empowers rather than excludes.'
+      `I'm motivated by the role technology plays in strengthening complex systems — particularly in **healthcare**, **critical infrastructure**, **industrial goods**, and **education**. When applied thoughtfully, advanced analytics and AI can improve resilience, efficiency, and access in environments where decisions carry real-world consequences.\n\n` +
+      `That belief has shaped both my professional and personal path. During my academic years, I co-founded a [free mathematics and physics school for more than 200 students](http://ffactorial.phys.msu.ru/), and I've remained committed to mentoring and widening access to STEM and international education. I've also had the opportunity to speak publicly about education and opportunity, including [moderating a public interview with Alibaba founder Jack Ma](https://www.youtube.com/watch?v=g25jcvtjZjA&t=1s) and [sharing reflections on studying at Oxford](https://www.youtube.com/watch?v=9SrI1BID21A&t=58s) and [how to get into Oxford & Cambridge](https://www.youtube.com/watch?v=iN04O1R5dN0&t=321s).\n\n` +
+      `As I grow into broader leadership roles, I aim to contribute to the responsible development of AI — building systems that are not only technically advanced, but grounded in long-term value, accountability, and real societal benefit.`
 
   };
 
