@@ -6,9 +6,13 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from pydantic import BaseModel
 import smtplib
 import os
+import logging
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 # Load environment variables from .env (EMAIL_ADDRESS, EMAIL_PASSWORD)
 load_dotenv()
@@ -64,13 +68,19 @@ async def send_email_options():
     return Response(status_code=200)
 
 
+# SMTP timeout (seconds) – fail fast instead of hanging until worker timeout
+SMTP_TIMEOUT = 20
+
+
 @app.post("/api/send-email")
 async def send_email(req: MailRequest):
     """Receive contact-form data and forward it via Gmail SMTP."""
+    log.info("send_email called from %s", req.email)
     EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
     EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
     if not (EMAIL_ADDRESS and EMAIL_PASSWORD):
+        log.error("Email credentials not configured")
         raise HTTPException(status_code=500, detail="Email credentials not configured")
 
     msg = MIMEMultipart()
@@ -81,11 +91,13 @@ async def send_email(req: MailRequest):
     msg.attach(MIMEText(req.message, "plain"))
 
     try:
-        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        with smtplib.SMTP("smtp.gmail.com", 587, timeout=SMTP_TIMEOUT) as server:
             server.starttls()
             server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             server.send_message(msg)
+        log.info("Email sent successfully for %s", req.email)
     except Exception as e:
+        log.exception("Failed to send email: %s", e)
         raise HTTPException(status_code=500, detail=f"Failed to send email: {e}")
 
     return {"message": "Email sent successfully"}
