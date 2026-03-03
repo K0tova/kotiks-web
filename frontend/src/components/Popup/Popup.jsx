@@ -46,7 +46,7 @@ const Popup = ({ title, text, showImage, onClose }) => {
         {title === 'Work Experience' && (
           <div className={styles['cv-download-container']}>
             <a
-              href="/CV_03032026.pdf"
+              href="/CV_2026.pdf"
               download
               className="primary-btn"
             >
