@@ -1,6 +1,8 @@
 # backend/main.py
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
+from starlette.middleware.base import BaseHTTPMiddleware
 from pydantic import BaseModel
 import smtplib
 import os
@@ -21,10 +23,27 @@ production_origins = [
     "https://kotiks-web.vercel.app",
 ]
 
+ALLOWED_ORIGINS = set(vite_ports + production_origins)
+
+
+class AddCORSHeadersMiddleware(BaseHTTPMiddleware):
+    """Ensure CORS headers are on every response (including errors)."""
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        origin = request.headers.get("origin")
+        if origin and (origin in ALLOWED_ORIGINS or origin.endswith(".vercel.app")):
+            response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
+
+
+# Add CORS-first so it runs last (wraps all responses)
+app.add_middleware(AddCORSHeadersMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=vite_ports + production_origins,
-    allow_origin_regex=r"https://.*\.vercel\.app",  # preview deployments
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,6 +56,12 @@ app.add_middleware(
 class MailRequest(BaseModel):
     email: str
     message: str
+
+
+@app.options("/api/send-email")
+async def send_email_options():
+    """Handle CORS preflight for the contact form."""
+    return Response(status_code=200)
 
 
 @app.post("/api/send-email")
