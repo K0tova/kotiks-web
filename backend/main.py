@@ -69,3 +69,9 @@ async def send_email(req: MailRequest):
 @app.get("/")
 def read_root():
     return {"message": "Hello from the backend!"}
+
+
+@app.get("/api/health")
+def health():
+    """Lightweight health check for Render and debugging."""
+    return {"status": "ok"}
