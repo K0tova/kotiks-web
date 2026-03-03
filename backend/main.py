@@ -11,6 +11,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
+try:
+    import resend
+except ImportError:
+    resend = None
+
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
@@ -71,30 +76,64 @@ async def send_email_options():
 # SMTP timeout (seconds) – fail fast instead of hanging until worker timeout
 SMTP_TIMEOUT = 20
 
+# Resend "from" address (free tier allows onboarding@resend.dev without domain verification)
+RESEND_FROM = "Contact Form <onboarding@resend.dev>"
+
+
+def _send_via_resend(to: str, reply_to: str, subject: str, text: str) -> None:
+    """Send email via Resend HTTP API (works on Render; SMTP is blocked there)."""
+    resend.api_key = os.getenv("RESEND_API_KEY")
+    params = {
+        "from": RESEND_FROM,
+        "to": [to],
+        "reply_to": reply_to,
+        "subject": subject,
+        "text": text,
+    }
+    resend.Emails.send(params)
+
+
+def _send_via_smtp(to: str, reply_to: str, subject: str, text: str) -> None:
+    """Send email via Gmail SMTP (for local dev only; Render blocks outbound SMTP)."""
+    email_address = os.getenv("EMAIL_ADDRESS")
+    email_password = os.getenv("EMAIL_PASSWORD")
+    msg = MIMEMultipart()
+    msg["From"] = email_address
+    msg["To"] = to
+    msg["Reply-To"] = reply_to
+    msg["Subject"] = subject
+    msg.attach(MIMEText(text, "plain"))
+    with smtplib.SMTP("smtp.gmail.com", 587, timeout=SMTP_TIMEOUT) as server:
+        server.starttls()
+        server.login(email_address, email_password)
+        server.send_message(msg)
+
 
 @app.post("/api/send-email")
 async def send_email(req: MailRequest):
-    """Receive contact-form data and forward it via Gmail SMTP."""
+    """Receive contact-form data and send via Resend (production) or Gmail SMTP (local)."""
     log.info("send_email called from %s", req.email)
-    EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-    EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+    to_address = os.getenv("EMAIL_ADDRESS")  # where you receive contact form messages
+    resend_key = os.getenv("RESEND_API_KEY")
+    email_password = os.getenv("EMAIL_PASSWORD")
 
-    if not (EMAIL_ADDRESS and EMAIL_PASSWORD):
-        log.error("Email credentials not configured")
-        raise HTTPException(status_code=500, detail="Email credentials not configured")
+    if not to_address:
+        log.error("EMAIL_ADDRESS not configured")
+        raise HTTPException(status_code=500, detail="Email not configured")
 
-    msg = MIMEMultipart()
-    msg["From"] = EMAIL_ADDRESS
-    msg["To"] = EMAIL_ADDRESS
-    msg["Reply-To"] = req.email
-    msg["Subject"] = f"Contact form: {req.email}"
-    msg.attach(MIMEText(req.message, "plain"))
+    subject = f"Contact form: {req.email}"
 
     try:
-        with smtplib.SMTP("smtp.gmail.com", 587, timeout=SMTP_TIMEOUT) as server:
-            server.starttls()
-            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.send_message(msg)
+        if resend_key and resend:
+            _send_via_resend(to_address, req.email, subject, req.message)
+        elif email_password:
+            _send_via_smtp(to_address, req.email, subject, req.message)
+        else:
+            log.error("Neither RESEND_API_KEY nor EMAIL_PASSWORD set")
+            raise HTTPException(
+                status_code=500,
+                detail="Email sending not configured (set RESEND_API_KEY on Render)",
+            )
         log.info("Email sent successfully for %s", req.email)
     except Exception as e:
         log.exception("Failed to send email: %s", e)
